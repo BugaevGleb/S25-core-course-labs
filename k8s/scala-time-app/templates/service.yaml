@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "scala-time-app.fullname" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+    {{- include "scala-time-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "scala-time-app.selectorLabels" . | nindent 4 }}
